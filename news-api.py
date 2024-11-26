@@ -2,13 +2,19 @@ from kafka import KafkaProducer
 import time
 import requests
 import json
+from dotenv import load_dotenv
+from dotenv import dotenv_values
+
+load_dotenv()
+
+config = dotenv_values(".env")
 
 producer = KafkaProducer(
     bootstrap_servers='localhost:29092',
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
-NEWS_API_KEY = "PLEASE_ADD_YOU_OWN_API_KEY"
+NEWS_API_KEY = config.get("NEWS_API_KEY")
 
 def fetch_real_time_news():
     url = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={NEWS_API_KEY}"
