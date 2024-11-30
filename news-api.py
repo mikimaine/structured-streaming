@@ -28,8 +28,8 @@ def fetch_real_time_news():
 while True:
     articles = fetch_real_time_news()
     for article in articles:
-        content = article.get("title", "")
+        content = article.get("content", "")
         if content:
-            producer.send("topic1", content)
+            # producer.send("topic1", content)
             print(f"Sent: {content}")
     time.sleep(10)
